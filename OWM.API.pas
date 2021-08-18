@@ -30,6 +30,7 @@ type
   public
     constructor Create(AOwner: TComponent); overload; override;
     constructor Create(AOwner: TComponent; const AAppKey: string); reintroduce; overload;
+    destructor Destroy; override;
     /// <summary>
     /// Query - City name, state code and country code divided by comma, Please, refer to ISO 3166 for the state codes or country codes.
     /// You can specify the parameter not only in English. In this case, the API response should be returned in the same language
@@ -73,6 +74,12 @@ end;
 function TOWMAPI.CurrentGet(out Weather: TOWMCurrent; const Params: string): Boolean;
 begin
   Result := ExecuteGet<TOWMCurrent>(FBaseUrl + '/weather?appid=' + FAppKey + Params, Weather);
+end;
+
+destructor TOWMAPI.Destroy;
+begin
+  FClient.Free;
+  inherited;
 end;
 
 function TOWMAPI.Current(out Weather: TOWMCurrent; const Query: string; Units: TOWMUnit): Boolean;

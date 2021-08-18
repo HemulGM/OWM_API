@@ -1,4 +1,4 @@
-program Project2;
+program OWM_Sample;
 
 uses
   System.StartUpCopy,
