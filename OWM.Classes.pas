@@ -111,9 +111,6 @@ type
 
 implementation
 
-uses
-  HGM.ArrayHelper;
-
 { TOWMCurrent }
 
 constructor TOWMCurrent.Create;
@@ -132,7 +129,8 @@ begin
   FWind.Free;
   FClouds.Free;
   FSys.Free;
-  TArrayHelp.FreeArrayOfObject<TOWMWeather>(FWeather);
+  for var Item in FWeather do
+    Item.Free;
   inherited;
 end;
 
